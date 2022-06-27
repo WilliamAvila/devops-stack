@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mysql-initdb-config
+  namespace: mysqldatabase
+data:
+  init.sql: |
+    CREATE DATABASE IF NOT EXISTS blog;
+    USE blog;
+    CREATE TABLE blog_posts (ID int(11), Title varchar(50), PostText varchar(225), Date date);

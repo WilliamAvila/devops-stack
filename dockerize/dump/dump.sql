@@ -1,0 +1,1 @@
+CREATE TABLE blog_posts (ID int(11), Title varchar(50), PostText varchar(225), Date date)

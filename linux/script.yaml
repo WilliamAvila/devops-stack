@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webserver
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: webserver
+  template:
+    metadata:
+      labels:
+        app: webserver
+    spec:
+      containers:
+        - name: webserver
+          image: MY_NEW_IMAGE
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            exec:
+              command: 
+              - /bin/sh
+              - -c
+              - wget --no-verbose --tries=1 --spider http://localhost:8080 || exit 1
+            failureThreshold: 5
+            timeoutSeconds: 5
+          lifecycle:
+            preStop:
+              exec:
+                command:
+                - /bin/sh
+                - -c
+                - echo "Last Date executed" `date` 
+          ports:
+            - containerPort: 8080
+      restartPolicy: Always
+      initContainers:
+       - name: init-webservice
+         image: busybox:1.28
+         command: ['sh', '-c', 'echo The webservice is about to start running! && sleep 30']
