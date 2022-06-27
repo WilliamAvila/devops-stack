@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: webserver
-          image: webserver:31E2B07
+          image: webserver:6134EB0
           imagePullPolicy: IfNotPresent
           livenessProbe:
             exec:
